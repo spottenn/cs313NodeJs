@@ -3,35 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <title>Postage Calculator</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/09Prove.css">
+
 </head>
 <body>
-<h1>Postage Calculator</h1>
-<form action="/getRate" method="get">
-    <label for="oz">Weight (ounces)</label>
-    <input type="text" id="oz" name="oz">
-    <br>
-    <label for="mailType">Mail Type</label>
-    <select name="mailType" id="mailType">
-        <option value="stamped">Letters (Stamped)</option>
-        <option value="metered">Letters (Metered)</option>
-        <option value="flat">Large Envelopes (Flats)</option>
-        <option value="retail">First-Class Package Service—Retail</option>
-    </select>
-    <br>
-    <label for="zone">Zone</label>
-    <select name="zone" id="zone">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-    </select>
-    <br>
-    <input type="submit" value="Calculate">
-</form>
+<div id="primary-div">
+    <h1>Postage Calculator</h1>
+    <form action="/getRate" method="get">
+        <label for="oz">Weight (oz)</label>
+        <input type="text" id="oz" name="oz" class="wide-input-field">
+        <br>
+        <label for="mailType">Mail Type</label>
+        <select name="mailType" id="mailType" class="wide-input-field">
+            <option value="stamped">Letters (Stamped)</option>
+            <option value="metered">Letters (Metered)</option>
+            <option value="flat">Large Envelopes (Flats)</option>
+            <option value="retail">First-Class Package Service—Retail</option>
+        </select>
+        <br>
+        <label for="zone">Zone</label>
+        <select name="zone" id="zone" class="wide-input-field">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+        </select>
+        <br>
+        <input type="submit" value="Calculate">
+    </form>
+</div>
+
 </body>
 </html>
