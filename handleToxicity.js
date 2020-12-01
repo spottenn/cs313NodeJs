@@ -1,3 +1,5 @@
+//const tfjs = require('@tensorflow/tfjs')
+const tfjsNode = require('@tensorflow/tfjs-node')
 const toxicity = require('@tensorflow-models/toxicity');
 
 // The minimum prediction confidence.
