@@ -1,0 +1,24 @@
+<div>
+    <% if (locals.userText) {
+        %><h2>Saved Text</h2><%
+    } else {
+        %><h2>Examples</h2><%
+    }%>
+    <%
+    if(locals.textBlocks) {%>
+        <%for (var i = 0; i < textBlocks.length; i++) { %>
+            <div>
+                <span><%= textBlocks[i].title %></span>
+                <button type="button" name="insertText"
+                        onclick="insertTextToTextArea('<%=textBlocks[i].text%>')">
+                    View/Edit
+                </button>
+                <% if(locals.userText) {%>
+                    <button type="button" name="getText"  value="<% textBlocks[i].id %>" onclick="deleteText()">
+                        Delete
+                    </button>
+                <%}%>
+            </div>
+        <% }
+    } %>
+</div>

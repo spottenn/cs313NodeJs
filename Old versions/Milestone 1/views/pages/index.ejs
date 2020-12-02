@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <% include ../partials/header.ejs %>
+</head>
+
+<body>
+<h1>AI Text Toxicity Analyser</h1>
+
+<% //include ../partials/nav.ejs  %>
+<form id="form">
+  <label for="editTextBox">Text to analyse: </label><br>
+  <textarea id='editTextBox' name="text">
+  </textarea>
+</form>
+<button onclick="getGuesses()">Analyse</button>
+
+<div id="guesses"></div>
+
+<% include ../partials/textBlocksListDiv.ejs %>
+
+
+<script>
+    function getGuesses() {
+        $.get("/getGuessesDiv", $('#form').serialize(), function (data) {
+            $('#guesses').html(data);
+        })
+    }
+    function insertTextToTextArea(text) {
+      $('#editTextBox').val(text);
+    }
+</script>
+
+</body>
+</html>

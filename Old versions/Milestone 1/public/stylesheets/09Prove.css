@@ -1,0 +1,101 @@
+* {
+    font-family:monospace;
+    color: #d6fff6;
+}
+input, .input-field, .button, .wide-input-field {
+    /*border-color:none;*/
+    border:2px solid #4dccbd;
+    border-radius:4px;
+    margin: 4px 0px;
+    padding: 2px;
+}
+form {
+    /*margin-bottom:48px;*/
+}
+p, form {
+    font-size:18px;
+}
+#primary-div, .small-div, #secondary-div {
+    margin:auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width:300px;
+    background-color:#174c6b;
+    padding: 20px;
+    border: 1px solid #4dccbd;
+    border-radius: 20px;
+
+}
+
+#secondary-div {
+    width: 90%;
+    max-width: 1200px;
+}
+#username, #term, #projection-name, .input-field, .wide-input-field  {
+    background-color:#231561;
+
+}
+.wide-input-field {
+    width: 300px;
+
+}
+.feedback, h2, #payment-title {
+    display:inline;
+}
+.feedback {
+    font-size: 14px;
+}
+#create-projection, #sign-in, .button, input[type=submit] {
+    background-color:#231561;
+    font-size:18px;
+}
+#payment-title {
+    font-weight:bold;
+    font-size:24px;
+}
+
+#payment {
+    font-size: 32px;
+    border:2px solid #4dccbd;
+    border-radius:4px;
+    margin: 4px 0;
+    width: 300px;
+    color:#ff8484;
+    background-color:#231561;
+    display:block;
+
+}
+.notice {
+    font-size: 10px;
+}
+
+.currency {
+}
+
+table, tr, th, td {
+    border:1px solid #4dccbd;
+    border-collapse:collapse;
+}
+
+table {
+    width: 100%;
+    margin:auto;
+}
+th {
+    padding:8px;
+}
+td {
+    padding:4px;
+}
+body {
+    background-color: #231651;
+}
+
+h2 {
+    color:#ff8484;
+}
+
+.small-button {
+    font-size: 1em;
+    margin: 0px;
+}
