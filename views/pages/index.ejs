@@ -7,10 +7,10 @@
 <body>
 <h1>AI Text Toxicity Analyser</h1>
 
-<% //include ../partials/nav.ejs  %>
+<% //include ../partials/nav.ejs   %>
 <form id="form">
-  <label for="editTextBox">Text to analyse: </label><br>
-  <textarea id='editTextBox' name="text">
+    <label for="editTextBox">Text to analyse: </label><br>
+    <textarea id='editTextBox' name="text">
   </textarea>
 </form>
 <button onclick="getGuesses()">Analyse</button>
@@ -20,17 +20,44 @@
 <% include ../partials/textBlocksListDiv.ejs %>
 
 <div class="g-signin2" data-onsuccess="onSignIn"></div>
+<button onclick="signOut();">Sign out</button>
+
 
 <script>
+    let profile;
+
     function getGuesses() {
         $('#guesses').html("Analysing...");
         $.get("/getGuessesDiv", $('#form').serialize(), function (data) {
             $('#guesses').html(data);
         })
     }
+
     function insertTextToTextArea(text) {
-      $('#editTextBox').val(text);
+        $('#editTextBox').val(text);
     }
+
+    function onSignIn(googleUser) {
+        profile = googleUser.getBasicProfile();
+        let idToken = googleUser.getAuthResponse().id_token;
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', 'https://yourbackend.example.com/tokensignin');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function() {
+            console.log('Signed in as: ' + xhr.responseText);
+        };
+        xhr.send('idtoken=' + id_token);
+        $.post('/signIn', { idToken: idToken }, (data) => {
+            //initialize session
+        } )
+    }
+    function signOut() {
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+            console.log('User signed out.');
+        });
+    }
+
 </script>
 
 </body>

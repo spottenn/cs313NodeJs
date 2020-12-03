@@ -1,4 +1,5 @@
 const {Pool} = require('pg');
+
 const connectionString = process.env.DATABASE_URL;
 const pool = new Pool({
     connectionString: connectionString,
@@ -6,9 +7,7 @@ const pool = new Pool({
         rejectUnauthorized: false
     }
 });
-
 const getExamplesSql = "SELECT id, title, text FROM example_text_blocks";
-
 
 exports.getExamples = (callback) => {
     pool.query(getExamplesSql, function (err, result) {
@@ -22,5 +21,30 @@ exports.getExamples = (callback) => {
         // console.log("Back from DB with result:");
         // console.log(result.rows);
         callback(result.rows);
+    });
+}
+
+
+exports.insertUser = (googleUserId) => {
+    const getUserIdSql = "SELECT id FROM users WHERE google_user_id = $1";
+    const insertUserIdSql = "INSERT INTO users (google_user_id) VALUES ($1)";
+    const params = [googleUserId];
+    const insertUserQuery = () => {
+        pool.query(insertUserIdSql, params, function (err, result) {
+            if (err) {
+                console.log("Error in query: ")
+                console.log(err);
+            }
+        })
+    }
+    pool.query(getUserIdSql, params, (err, result) => {
+        if (err) {
+            console.log("Error in query: ")
+            console.log(err);
+        }
+        if (result.rows) {
+            return;
+        }
+        insertUserQuery();
     });
 }

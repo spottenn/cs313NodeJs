@@ -1,7 +1,7 @@
 CREATE TABLE users
 (
     id       SERIAL       NOT NULL PRIMARY KEY,
-    username VARCHAR(100) NOT NULL UNIQUE CHECK (username <> ''),
+    google_user_id VARCHAR(100) NOT NULL UNIQUE CHECK (google_user_id <> '')
 );
 
 CREATE TABLE text_blocks

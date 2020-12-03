@@ -3,10 +3,11 @@ const path = require('path')
 const {Pool} = require('pg');
 const mailCost = require('./mailCost');
 const handleToxicity = require('./handleToxicity');
-const dbHelper = require('./dbHelper')
-
+const dbHelper = require('./dbHelper');
+const loginHandler = require('./loginHandler');
 
 const PORT = process.env.PORT || 5000
+
 
 
 
@@ -19,6 +20,7 @@ express()
             res.render('pages/index', {textBlocks: examples, userText: false});
         })
     })
+    .post('/signIn', loginHandler.signIn)
     .get('/getRate', mailCost.calculateRate)
     .get('/getRateJson', mailCost.calculateRate)
     .get('/getGuessesDiv', handleToxicity.getGuessesDiv)
