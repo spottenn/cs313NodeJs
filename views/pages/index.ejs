@@ -19,9 +19,11 @@
 
 <% include ../partials/textBlocksListDiv.ejs %>
 
+<div class="g-signin2" data-onsuccess="onSignIn"></div>
 
 <script>
     function getGuesses() {
+        $('#guesses').html("Analysing...");
         $.get("/getGuessesDiv", $('#form').serialize(), function (data) {
             $('#guesses').html(data);
         })
