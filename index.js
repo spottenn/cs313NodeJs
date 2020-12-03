@@ -26,6 +26,7 @@ express()
     .get('/getRate', mailCost.calculateRate)
     .get('/getRateJson', mailCost.calculateRate)
     .get('/getGuessesDiv', handleToxicity.getGuessesDiv)
+    //.get('/quickInsert', () => { dbHelper.insertUser(39949)})
     .listen(PORT, () => console.log(`Listening on ${PORT}`))
 
 
