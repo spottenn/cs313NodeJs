@@ -13,7 +13,7 @@ async function verifyToken() {
 }
 
 exports.signIn = async (req, res) => {
-    const ticket = awaitclient.verifyIdToken({
+    const ticket = await client.verifyIdToken({
         idToken: req.body.idToken,
         audience: CLIENT_ID
     });
