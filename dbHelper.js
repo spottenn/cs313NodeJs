@@ -10,6 +10,7 @@ const pool = new Pool({
     }
 });
 const getExamplesSql = "SELECT id, title, text FROM example_text_blocks";
+const getTextBlocksSql = "SELECT id, title, text FROM text_blocks WHERE user_id = (SELECT id FROM users WHERE google_user_id = $1)";
 
 exports.getExamples = (callback) => {
     pool.query(getExamplesSql, function (err, result) {
@@ -31,8 +32,8 @@ exports.insertUser = (googleUserId) => {
     const getUserIdSql = "SELECT id FROM users WHERE google_user_id = $1";
     const insertUserIdSql = "INSERT INTO users (google_user_id) VALUES ($1)";
     const params = [googleUserId];
-    console.log("about to insert");
-    console.log(params);
+    console.log("insertUserMethod");
+    //console.log(params);
     const insertUserQuery = () => {
         pool.query(insertUserIdSql, params, function (err, result) {
             if (err) {
@@ -47,7 +48,7 @@ exports.insertUser = (googleUserId) => {
             console.log(err);
         }
         console.log("getUser result:");
-        console.log(result);
+        //console.log(result);
         if (result.rows && result.rows.length === 0) {
             insertUserQuery();
         } else {
@@ -55,10 +56,12 @@ exports.insertUser = (googleUserId) => {
         }
     });
 }
-exports.saveBlock = (req, res) => {
+exports.saveBlock = async (req, res) => {
     const insertBlockSql =
         "INSERT INTO text_blocks (user_id, title, text) values ((SELECT id FROM users WHERE google_user_id = $1),$2, $3)"
-    const params = [loginHandler.getGoogleUserId(req.body.idToken), req.body.title, req.body.text]
+    const params = [await loginHandler.getGoogleUserId(req.body.idToken), req.body.title, req.body.textBlock]
+    console.log("saveBlockParams");
+    //console.log(params);
     pool.query(insertBlockSql, params, function (err, result) {
         if (err) {
             console.log("Error in query: ")
@@ -67,3 +70,21 @@ exports.saveBlock = (req, res) => {
     })
 }
 
+exports.getUserBlocks = (googleUserId, callback) => {
+    pool.query(getTextBlocksSql, [googleUserId], function (err, result) {
+        // If an error occurred...
+        if (err) {
+            console.log("Error in query: ")
+            console.log(err);
+        }
+
+        // Log this to the console for debugging purposes.
+        // console.log("Back from DB with result:");
+        // console.log(result.rows);
+        if (result.rows) {
+            callback(result.rows);
+        } else {
+            callback(undefined);
+        }
+    });
+}

@@ -19,7 +19,12 @@ exports.signIn = async (req, res) => {
     try {
         let googleUserId = await exports.getGoogleUserId(req.body.idToken);
         dbHelper.insertUser(googleUserId);
-        res.json({success: true});
+        let sendTextBlockDiv = (req, res) => {
+            dbHelper.getUserBlocks( googleUserId,(blocks) => {
+                res.render('partials/textBlocksListDiv', {textBlocks: blocks, userText: true});
+            })
+        }
+        sendTextBlockDiv(req, res);
     } catch (err) {
         console.log(err);
     }

@@ -19,6 +19,7 @@
 <div id="guesses"></div>
 
 <% include ../partials/textBlocksListDiv.ejs %>
+<div id="userTextBlocks"></div>
 
 <div class="g-signin2" data-onsuccess="onSignIn"></div>
 <button onclick="signOut();">Sign out</button>
@@ -43,13 +44,15 @@
         profile = googleUser.getBasicProfile();
         idToken = googleUser.getAuthResponse().id_token;
         $.post('/signIn', { idToken: idToken }, (data) => {
-            console.log(data);
+            console.log("onSignIn again");
+            $('#userTextBlocks').html(data);
         } )
     }
     function signOut() {
         var auth2 = gapi.auth2.getAuthInstance();
         auth2.signOut().then(function () {
             console.log('User signed out.');
+            $('#userTextBlocks').html('');
         });
     }
     function saveTextBlock () {
@@ -61,8 +64,9 @@
         let textBlockSaveObject = {
             idToken: idToken,
             title: "Placeholder title",
-            textBlock: $("editTextBox").val()
+            textBlock: $("#editTextBox").val()
         }
+        console.log(textBlockSaveObject);
         $.post('/saveBlock', textBlockSaveObject, (data) => {
             console.log(data);
         } )
