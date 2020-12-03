@@ -13,6 +13,7 @@
     <textarea id='editTextBox' name="text">
   </textarea>
 </form>
+<button onclick="saveTextBlock()">Save</button>
 <button onclick="getGuesses()">analyze</button>
 
 <div id="guesses"></div>
@@ -49,6 +50,21 @@
         auth2.signOut().then(function () {
             console.log('User signed out.');
         });
+    }
+    function saveTextBlock () {
+        // todo: see if user signed in
+        // if (!signedIn) {
+        //     return;
+        // }
+
+        let textBlockSaveObject = {
+            idToken: 39949,
+            title: "Placeholder title",
+            textBlock: $("editTextBox").val()
+        }
+        $.post('/saveBlock', textBlockSaveObject, (data) => {
+            console.log(data);
+        } )
     }
 
 </script>

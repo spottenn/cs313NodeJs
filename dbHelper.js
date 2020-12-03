@@ -1,4 +1,6 @@
 const {Pool} = require('pg');
+const loginHandler = require('./loginHandler');
+
 
 const connectionString = process.env.DATABASE_URL;
 const pool = new Pool({
@@ -53,3 +55,15 @@ exports.insertUser = (googleUserId) => {
         }
     });
 }
+exports.saveBlock = (req, res) => {
+    const insertBlockSql =
+        "INSERT INTO text_blocks (user_id, title, text) values ((SELECT id FROM users WHERE google_user_id = $1),$2, $3)"
+    const params = [loginHandler.getGoogleUserId(req.body.idToken), req.body.title, req.body.text]
+    pool.query(insertBlockSql, params, function (err, result) {
+        if (err) {
+            console.log("Error in query: ")
+            console.log(err);
+        }
+    })
+}
+

@@ -26,7 +26,9 @@ express()
     .get('/getRate', mailCost.calculateRate)
     .get('/getRateJson', mailCost.calculateRate)
     .get('/getGuessesDiv', handleToxicity.getGuessesDiv)
-    //.get('/quickInsert', () => { dbHelper.insertUser(39949)})
+    .get('/quickInsert', () => { dbHelper.insertUser(39949)})
+    .post('/saveBlock', loginHandler.verifySignedIn, dbHelper.saveBlock)
+    .post('/quickSaveBlock',  dbHelper.saveBlock)
     .listen(PORT, () => console.log(`Listening on ${PORT}`))
 
 

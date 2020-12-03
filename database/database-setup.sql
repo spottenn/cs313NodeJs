@@ -18,6 +18,6 @@ CREATE TABLE example_text_blocks
     text    TEXT    NOT NULL
 );
 
-INSERT INTO example_text_blocks (name, text) VALUES ('Example 1', 'You stink');
+INSERT INTO example_text_blocks (title, text) VALUES ('Example 1', 'You stink');
 
-ALTER TABLE example_text_blocks RENAME COLUMN name TO title;
+SELECT * FROM users;
