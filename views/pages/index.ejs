@@ -41,7 +41,7 @@
         profile = googleUser.getBasicProfile();
         let idToken = googleUser.getAuthResponse().id_token;
         $.post('/signIn', { idToken: idToken }, (data) => {
-            //initialize session
+            console.log(data);
         } )
     }
     function signOut() {

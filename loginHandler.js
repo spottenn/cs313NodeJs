@@ -19,5 +19,5 @@ exports.signIn = async (req, res) => {
     });
     const googleUserId = ticket.getPayload()['sub'];
     dbHelper.insertUser(googleUserId);
-    res.write('');
+    res.json({success: true});
 }
