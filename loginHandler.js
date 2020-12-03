@@ -17,7 +17,7 @@ exports.getGoogleUserId = async  (idToken) =>{
 
 exports.signIn = async (req, res) => {
     try {
-        let googleUserId = await getGoogleUserId(req.body.idToken);
+        let googleUserId = await exports.getGoogleUserId(req.body.idToken);
         dbHelper.insertUser(googleUserId);
         res.json({success: true});
     } catch (err) {
@@ -25,6 +25,6 @@ exports.signIn = async (req, res) => {
     }
 }
 exports.verifySignedIn = async (req, res, next) => {
-    let googleUserId = await getGoogleUserId(req.body.idToken);
+    let googleUserId = await exports.getGoogleUserId(req.body.idToken);
     next();
 }
