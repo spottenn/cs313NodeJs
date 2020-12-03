@@ -26,6 +26,7 @@
 
 <script>
     let profile;
+    let idToken;
 
     function getGuesses() {
         $('#guesses').html("Analysing...");
@@ -40,7 +41,7 @@
 
     function onSignIn(googleUser) {
         profile = googleUser.getBasicProfile();
-        let idToken = googleUser.getAuthResponse().id_token;
+        idToken = googleUser.getAuthResponse().id_token;
         $.post('/signIn', { idToken: idToken }, (data) => {
             console.log(data);
         } )
@@ -58,7 +59,7 @@
         // }
 
         let textBlockSaveObject = {
-            idToken: 39949,
+            idToken: idToken,
             title: "Placeholder title",
             textBlock: $("editTextBox").val()
         }
