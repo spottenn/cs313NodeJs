@@ -8,7 +8,13 @@
     if(locals.textBlocks) {%>
         <%for (var i = 0; i < textBlocks.length; i++) { %>
             <div>
-                <span><%= textBlocks[i].title %></span>
+                <span><%
+                        let output = ""
+                     if (textBlocks[i].text. length > 40) {
+                         output = textBlocks[i].text.substring(0,40) + "...";
+                     } else {
+                         output = textBlocks[i].text;
+                     }%><%= output%></span>
                 <button type="button" name="insertText"
                         onclick="insertTextToTextArea('<%=textBlocks[i].text%>')">
                     View/Edit

@@ -16,6 +16,7 @@ express()
     .use(express.static(path.join(__dirname, 'public')))
     .set('views', path.join(__dirname, 'views'))
     .set('view engine', 'ejs')
+    .use(logRequest)
     .use(bodyParser.urlencoded({extended: true}))
     .get('/', (req, res) => {
         dbHelper.getExamples((examples) => {
@@ -35,4 +36,8 @@ express()
 
 function sendTextBlocks(req, res, next) {
 
+}
+function logRequest(req, res, next) {
+    console.log("Received a request for: " + req.url);
+    next();
 }

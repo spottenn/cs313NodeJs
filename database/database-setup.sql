@@ -19,5 +19,7 @@ CREATE TABLE example_text_blocks
 );
 
 INSERT INTO example_text_blocks (title, text) VALUES ('Example 1', 'You stink');
+INSERT INTO example_text_blocks (title, text) VALUES ('Example 1', 'You are the worst person in the world. I hate you ' ||
+ 'and I think you stink. Never talk to me again.');
 
 SELECT * FROM users;
