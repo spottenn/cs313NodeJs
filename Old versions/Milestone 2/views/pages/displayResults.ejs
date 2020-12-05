@@ -1,0 +1,23 @@
+<% const prettyNames = {
+    stamped: "Letters (Stamped)",
+    metered: "Letters (Metered)",
+    flat: "Large Envelopes (Flat)",
+    retail: "First-Class Package Service—Retail"
+} %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Postage Calculator: Results</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/09Prove.css">
+</head>
+<body>
+<div id="primary-div">
+    <h1>Postage Calculator: Results</h1>
+    <p>
+        <% if (cost !== undefined){ %><%- "Your shipment will cost $" %><%= Number(cost).toFixed(2) %>
+        <% } else { %><%- "Your shipment cannot be sent as \"" %><%= prettyNames[type] + "\"" %>
+        <% } %>
+    </p>
+</div>
+</body>

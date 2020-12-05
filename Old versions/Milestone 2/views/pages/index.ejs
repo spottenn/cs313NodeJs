@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <% include ../partials/header.ejs %>
+</head>
+
+<body>
+<h1>AI Text Toxicity Analyzer</h1>
+
+<% //include ../partials/nav.ejs   %>
+<form id="form">
+    <label for="editTextBox">Text to analyze: </label><br>
+    <textarea id='editTextBox' name="text">
+  </textarea>
+</form>
+<button onclick="saveTextBlock()">Save</button>
+<button onclick="getGuesses()">analyze</button>
+
+<div id="guesses"></div>
+
+<% include ../partials/textBlocksListDiv.ejs %>
+<div id="userTextBlocks"></div>
+
+<div class="g-signin2" data-onsuccess="onSignIn"></div>
+<button onclick="signOut();">Sign out</button>
+
+
+<script>
+    let profile;
+    let idToken;
+
+    function getGuesses() {
+        $('#guesses').html("Analysing...");
+        $.get("/getGuessesDiv", $('#form').serialize(), function (data) {
+            $('#guesses').html(data);
+        })
+    }
+
+    function insertTextToTextArea(text) {
+        $('#editTextBox').val(text);
+    }
+
+    function onSignIn(googleUser) {
+        profile = googleUser.getBasicProfile();
+        idToken = googleUser.getAuthResponse().id_token;
+        $.post('/signIn', { idToken: idToken }, (data) => {
+            console.log("onSignIn again");
+            $('#userTextBlocks').html(data);
+        } )
+    }
+    function signOut() {
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+            console.log('User signed out.');
+            $('#userTextBlocks').html('');
+        });
+    }
+    function saveTextBlock () {
+        // todo: see if user signed in
+        // if (!signedIn) {
+        //     return;
+        // }
+
+        let textBlockSaveObject = {
+            idToken: idToken,
+            title: "Placeholder title",
+            textBlock: $("#editTextBox").val()
+        }
+        console.log(textBlockSaveObject);
+        $.post('/saveBlock', textBlockSaveObject, (data) => {
+            console.log(data);
+        } )
+    }
+
+</script>
+
+</body>
+</html>
