@@ -1,13 +1,17 @@
 <div>
-    <% if (locals.userText) {
+    <%
+    let blockType = "";
+    if (locals.userText) {
+        blockType = "userBlock";
         %><h2>Saved Text</h2><%
     } else {
+        blockType = "exampleBlock";
         %><h2>Examples</h2><%
     }%>
     <%
     if(locals.textBlocks) {%>
         <%for (var i = 0; i < textBlocks.length; i++) { %>
-            <div>
+            <div id="<%=blockType%>div<%=textBlocks[i].text%>>">
                 <span><%
                         let output = ""
                      if (textBlocks[i].text. length > 40) {
@@ -20,7 +24,7 @@
                     View/Edit
                 </button>
                 <% if(locals.userText) {%>
-                    <button type="button" name="deleteText"  value="<% textBlocks[i].id %>" onclick="deleteText()">
+                    <button type="button" onclick="deleteText(this.id, <%=textBlocks[i].id%>)">
                         Delete
                     </button>
                 <%}%>

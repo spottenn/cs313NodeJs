@@ -30,6 +30,7 @@ express()
     .get('/quickInsert', () => { dbHelper.insertUser(39949)})
     .post('/saveBlock', loginHandler.verifySignedIn, dbHelper.saveBlock)
     .post('/quickSaveBlock',  dbHelper.saveBlock)
+    .post('/deleteBlock', loginHandler.verifySignedIn, dbHelper.deleteBlock)
     .listen(PORT, () => console.log(`Listening on ${PORT}`))
 
 

@@ -62,12 +62,42 @@ exports.saveBlock = async (req, res) => {
     const params = [await loginHandler.getGoogleUserId(req.body.idToken), req.body.title, req.body.textBlock]
     console.log("saveBlockParams");
     //console.log(params);
+    let sendTextBlockDiv = async (req, res) => {
+        const googleUserId = await loginHandler.getGoogleUserId(req.body.idToken);
+        exports.getUserBlocks( googleUserId,(blocks) => {
+            res.render('partials/textBlocksListDiv', {textBlocks: blocks, userText: true});
+        })
+    }
     pool.query(insertBlockSql, params, function (err, result) {
         if (err) {
             console.log("Error in query: ")
             console.log(err);
         }
+        sendTextBlockDiv(req,res);
     })
+}
+exports.deleteBlock = async (req, res) => {
+    const getUserIdSql = "SELECT id FROM users WHERE google_user_id = $1";
+    const googleUserId = await loginHandler.getGoogleUserId(req.body.idToken);
+    const getUserIdParams = [googleUserId];
+    let sendTextBlockDiv = (req, res) => {
+        exports.getUserBlocks( googleUserId,(blocks) => {
+            res.render('partials/textBlocksListDiv', {textBlocks: blocks, userText: true});
+        })
+    }
+    const deleteBlockQuery =  async (err, result) => {
+        const deleteBlockSql = "DELETE FROM text_blocks WHERE user_id = $1 AND id = $2"
+        const deleteBlockParams = [result.rows[0].id, req.body.textBlockId]
+        pool.query(deleteBlockSql, deleteBlockParams, (err, result) => {
+            if (err) {
+                console.log("Error in query: ")
+                console.log(err);
+
+            }
+        });
+        sendTextBlockDiv(req,res);
+    }
+    pool.query(getUserIdSql, getUserIdParams, deleteBlockQuery)
 }
 
 exports.getUserBlocks = (googleUserId, callback) => {

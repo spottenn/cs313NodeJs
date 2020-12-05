@@ -69,6 +69,23 @@
         console.log(textBlockSaveObject);
         $.post('/saveBlock', textBlockSaveObject, (data) => {
             console.log(data);
+            $('#userTextBlocks').html(data);000
+        } )
+    }
+    function deleteText(element, id) {
+        // todo: see if user signed in
+        // if (!signedIn) {
+        //     return;
+        // }
+
+        let textBlockSaveObject = {
+            idToken: idToken,
+            textBlockId: id
+        }
+        console.log(textBlockSaveObject);
+        $.post('/deleteBlock', textBlockSaveObject, (data) => {
+            console.log(data);
+            $('#userTextBlocks').html(data);
         } )
     }
 
