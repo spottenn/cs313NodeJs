@@ -5,25 +5,6 @@
 </head>
 
 <body>
-<h1>AI Text Toxicity Analyzer</h1>
-
-<% //include ../partials/nav.ejs   %>
-<form id="form">
-    <label for="editTextBox">Text to analyze: </label><br>
-    <textarea id='editTextBox' name="text">
-  </textarea>
-</form>
-<button onclick="saveTextBlock()">Save</button>
-<button onclick="getGuesses()">analyze</button>
-
-<div id="guesses"></div>
-
-<% include ../partials/textBlocksListDiv.ejs %>
-<div id="userTextBlocks"></div>
-
-<div class="g-signin2" data-onsuccess="onSignIn"></div>
-<button onclick="signOut();">Sign out</button>
-
 
 <script>
     let profile;
@@ -43,11 +24,12 @@
     function onSignIn(googleUser) {
         profile = googleUser.getBasicProfile();
         idToken = googleUser.getAuthResponse().id_token;
-        $.post('/signIn', { idToken: idToken }, (data) => {
+        $.post('/signIn', {idToken: idToken}, (data) => {
             console.log("onSignIn again");
             $('#userTextBlocks').html(data);
-        } )
+        })
     }
+
     function signOut() {
         var auth2 = gapi.auth2.getAuthInstance();
         auth2.signOut().then(function () {
@@ -55,7 +37,8 @@
             $('#userTextBlocks').html('');
         });
     }
-    function saveTextBlock () {
+
+    function saveTextBlock() {
         // todo: see if user signed in
         // if (!signedIn) {
         //     return;
@@ -70,8 +53,9 @@
         $.post('/saveBlock', textBlockSaveObject, (data) => {
             console.log(data);
             $('#userTextBlocks').html(data);
-        } )
+        })
     }
+
     function deleteText(element, id) {
         // todo: see if user signed in
         // if (!signedIn) {
@@ -86,10 +70,35 @@
         $.post('/deleteBlock', textBlockSaveObject, (data) => {
             console.log(data);
             $('#userTextBlocks').html(data);
-        } )
+        })
     }
 
 </script>
+
+<div class="container">
+    <% include ../partials/nav.ejs %>
+    <div class="d-flex flex-wrap justify-content-center">
+        <div class="p-2 flex-grow-1">
+            <form id="form">
+                <div class="d-flex">
+                    <div class="pr-2 mt-auto"><label class="mb-0" for="editTextBox">Text to analyze: </label></div>
+                    <div class="pl-2 flex-grow-1"><textarea id='editTextBox' class="form-control"
+                                                            name="text"></textarea></div>
+                </div>
+            </form>
+        </div>
+        <div class="p-2 mt-auto">
+            <button class="btn btn-outline-primary" onclick="saveTextBlock()">Save</button>
+            <button class="ml-1 btn btn-outline-primary" onclick="getGuesses()">Analyze</button>
+        </div>
+    </div>
+    <div id="guesses"></div>
+
+    <div id="userTextBlocks"></div>
+    <% include ../partials/textBlocksListDiv.ejs %>
+
+    <button onclick="signOut();">Sign out</button>
+</div>
 
 </body>
 </html>

@@ -1,33 +1,35 @@
-<div>
+<div class="d-flex flex-column">
     <%
     let blockType = "";
     if (locals.userText) {
         blockType = "userBlock";
-        %><h2>Saved Text</h2><%
+        %><h5>Saved Text</h5><%
     } else {
         blockType = "exampleBlock";
-        %><h2>Examples</h2><%
+        %><h5>Examples</h5><%
     }%>
     <%
     if(locals.textBlocks) {%>
         <%for (var i = 0; i < textBlocks.length; i++) { %>
-            <div id="<%=blockType%>div<%=textBlocks[i].text%>>">
-                <span><%
+            <div id="<%=blockType%>div<%=textBlocks[i].id%>" class="d-flex">
+                <div class="flex-grow-1 mt-auto"><%
                         let output = ""
                      if (textBlocks[i].text. length > 40) {
                          output = textBlocks[i].text.substring(0,40) + "...";
                      } else {
                          output = textBlocks[i].text;
-                     }%><%= output%></span>
-                <button type="button" name="insertText"
-                        onclick="insertTextToTextArea('<%=textBlocks[i].text%>')">
-                    View/Edit
-                </button>
-                <% if(locals.userText) {%>
-                    <button type="button" onclick="deleteText(this.id, <%=textBlocks[i].id%>)">
-                        Delete
+                     }%><%= output%></div>
+                <div class="p-2 mt-auto">
+                    <button class="btn btn-outline-secondary" type="button" name="insertText"
+                            onclick="insertTextToTextArea('<%=textBlocks[i].text%>')">
+                        View/Edit
                     </button>
-                <%}%>
+                    <% if(locals.userText) {%>
+                        <button class="ml-1 btn btn-outline-secondary" type="button" onclick="deleteText(this.id, <%=textBlocks[i].id%>)">
+                            Delete
+                        </button>
+                    <%}%>
+                </div>
             </div>
         <% }
     } %>

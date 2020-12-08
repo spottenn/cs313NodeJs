@@ -6,6 +6,8 @@ const mailCost = require('./mailCost');
 const handleToxicity = require('./handleToxicity');
 const dbHelper = require('./dbHelper');
 const loginHandler = require('./loginHandler');
+const cookieParser = require("cookie-parser");
+
 
 const PORT = process.env.PORT || 5000
 
@@ -13,6 +15,7 @@ const PORT = process.env.PORT || 5000
 
 
 express()
+    .use(cookieParser())
     .use(express.static(path.join(__dirname, 'public')))
     .set('views', path.join(__dirname, 'views'))
     .set('view engine', 'ejs')
@@ -40,5 +43,6 @@ function sendTextBlocks(req, res, next) {
 }
 function logRequest(req, res, next) {
     console.log("Received a request for: " + req.url);
+    console.log(req.cookies);
     next();
 }
