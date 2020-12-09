@@ -12,20 +12,20 @@
     if(locals.textBlocks) {%>
         <%for (var i = 0; i < textBlocks.length; i++) { %>
             <div id="<%=blockType%>div<%=textBlocks[i].id%>" class="d-flex">
-                <div class="flex-grow-1 mt-auto"><%
+                <div class="flex-grow-1 my-auto"><%
                         let output = ""
                      if (textBlocks[i].text. length > 40) {
                          output = textBlocks[i].text.substring(0,40) + "...";
                      } else {
                          output = textBlocks[i].text;
                      }%><%= output%></div>
-                <div class="p-2 mt-auto">
-                    <button class="btn btn-outline-secondary" type="button" name="insertText"
+                <div class="p-2 my-auto">
+                    <button class="btn btn-sm btn-outline-secondary" type="button" name="insertText"
                             onclick="insertTextToTextArea('<%=textBlocks[i].text%>')">
                         View/Edit
                     </button>
                     <% if(locals.userText) {%>
-                        <button class="ml-1 btn btn-outline-secondary" type="button" onclick="deleteText(this.id, <%=textBlocks[i].id%>)">
+                        <button class="ml-1 btn btn-sm btn-outline-secondary" type="button" onclick="deleteText(this.id, <%=textBlocks[i].id%>)">
                             Delete
                         </button>
                     <%}%>
