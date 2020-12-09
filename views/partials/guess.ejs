@@ -1,4 +1,7 @@
-<div><h2>AI Guesses: </h2><% for (var i = 0; i < guesses.length; i++) { %>
+<div class="m-2 p-2 text-light rounded
+<%= guesses[0] === 'Not Toxic' ? 'bg-success' : 'bg-danger'%>
+"><h2>AI Guesses: </h2>
+    <% for (var i = 0; i < guesses.length; i++) { %>
       <span><%= guesses[i]%>
           <%if (i + 1 < guesses.length) {%>
           ,

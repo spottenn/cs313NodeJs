@@ -1,4 +1,4 @@
-<div class="d-flex flex-column">
+<div class="p-2  d-flex flex-column">
     <%
     let blockType = "";
     if (locals.userText) {
@@ -10,25 +10,32 @@
     }%>
     <%
     if(locals.textBlocks) {%>
-        <%for (var i = 0; i < textBlocks.length; i++) { %>
-            <div id="<%=blockType%>div<%=textBlocks[i].id%>" class="d-flex">
-                <div class="flex-grow-1 my-auto"><%
-                        let output = ""
-                     if (textBlocks[i].text. length > 40) {
-                         output = textBlocks[i].text.substring(0,40) + "...";
-                     } else {
-                         output = textBlocks[i].text;
-                     }%><%= output%></div>
+        <%
+        var k = 0;
+        var htmlClass = "";
+        var btnHtmlClass = "";
+        for (var i = 0; i < textBlocks.length; i++) {
+            if (k===0) {
+                htmlClass = "bg-secondary text-light"
+                btnHtmlClass = "btn-outline-light"
+                k++;
+            } else {
+                htmlClass = "bg-light text-dark"
+                btnHtmlClass = "btn-outline-dark"
+                k--;
+            }%>
+            <div id="<%=blockType%>div<%=textBlocks[i].id%>" class="p-2 d-flex <%=htmlClass%>">
+                <div class="flex-grow-1 my-auto text-truncate"><%= textBlocks[i].text%></div>
                 <div class="p-2 my-auto">
-                    <button class="btn btn-sm btn-outline-secondary" type="button" name="insertText"
-                            onclick="insertTextToTextArea('<%=textBlocks[i].text%>')">
-                        View/Edit
-                    </button>
                     <% if(locals.userText) {%>
-                        <button class="ml-1 btn btn-sm btn-outline-secondary" type="button" onclick="deleteText(this.id, <%=textBlocks[i].id%>)">
+                        <button class="mr-1 btn btn-sm <%=btnHtmlClass%>" type="button" onclick="deleteText(this.id, <%=textBlocks[i].id%>)">
                             Delete
                         </button>
                     <%}%>
+                    <button class="btn btn-sm <%=btnHtmlClass%>" type="button" name="insertText"
+                            onclick="insertTextToTextArea('<%=textBlocks[i].text%>')">
+                        View/Edit
+                    </button>
                 </div>
             </div>
         <% }
